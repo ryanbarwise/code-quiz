@@ -43,8 +43,6 @@ var questions = [{
 }];
 
 
-
-
 function setQuestion() {
     var questionH3 = document.getElementById('questions');
     questionH3.textContent = questions[questionNum].question;
@@ -60,46 +58,82 @@ function quizTimer() {
         secondsLeft--;
         time.textContent = secondsLeft + " seconds";
 
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0 || questionNum === questions.length) {
             clearInterval(timerInterval);
+            time.textContent = "Game OVER";
         }
 
     }, 1000);
 
+
 }
-function checkAnswer(event) {
-    if (event.target.tagName.toLowerCase() === 'button'){
-        if (event.target.textContent === questions[questionNum].answer) {
-            //this goes off if it is the correct answer
-            correct++
-        }else {
-            //this goes off if it is the wrong answer
-            incorrect++
-            secondsLeft = secondsLeft - 5
-        }  
-        questionNum++
-        if (questionNum < questions.length) {
-            setQuestion();
-        }else {
-            // call a function to show results and allows user to enter initials and save score...
-            // navigate to your high score html page which will show all of the high scores you have saved to your local storage...
+
+
+
+
+    function checkAnswer(event) {
+        if (event.target.tagName.toLowerCase() === 'button') {
+            if (event.target.textContent === questions[questionNum].answer) {
+                //this goes off if it is the correct answer
+                correct++
+            } else {
+                //this goes off if it is the wrong answer
+                incorrect++
+                secondsLeft = secondsLeft - 5
+            }
+            questionNum++
+            if (questionNum < questions.length) {
+                setQuestion();
+            } else {
+                showResults();
+
+                }
+                // call a function to show results and allows user to enter initials and save score...
+                // navigate to your high score html page which will show all of the high scores you have saved to your local storage...
+            }
+
+
+
         }
-        
-        //setQuestion();
+
+        function showResults() {
+            quizDiv.style.display = "none";
+            var submit = document.getElementById('submit');
+            submit.textContent = correct + " right and " + incorrect + " wrong";
+            
+            var userInfo = document.getElementById('userInfo');
+            var initialsBox = document.createElement('input');
+            initialsBox.setAttribute('type', 'text');
+            initialsBox.setAttribute('value', 'user initials')
+            userInfo.appendChild(initialsBox);
+            
+            var submitBox = document.getElementById('submitBox');
+            var submitBoxEl = document.createElement('BUTTON');
+            submitBoxEl.textContent = "Save Score!";
+            submitBox.appendChild(submitBoxEl);
+       
+        }
+    
+    
+
+
+
+
+    startButton.addEventListener('click', function () {
+        var instructions = document.getElementById('instructions');
+        instructions.style.display = 'none';
+        quizTimer();
+        setQuestion();
+
+    quizDiv.addEventListener('click', checkAnswer);
+
+    submitBoxEl.addEventListener('click', function () {
         
     }
-}
 
+    })
 
-
-
-startButton.addEventListener('click', function () {
-    var instructions = document.getElementById('instructions');
-    instructions.style.display = 'none';
-    quizTimer();
-    setQuestion();
-})
-
-quizDiv.addEventListener('click', checkAnswer);
+    //quizDiv.addEventListener('click', checkAnswer);
+  
 
 
