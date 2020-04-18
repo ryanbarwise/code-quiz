@@ -6,6 +6,24 @@
     <title>Quiz</title>
 </head>
 <body>
-    
+    <h1>High Scores</h1>
+    <div id="scores">
+
+    </div>
+    <script>
+        
+    var highScores = localStorage.getItem('highScores');
+    if(highScores) {
+        highScores = JSON.parse(highScores);
+        var scores = document.getElementById('scores');
+        
+        
+        
+        
+        //render parsed highscors to the page
+    } else {
+        // no highscores were saved
+    }
+    </script>
 </body>
 </html>
