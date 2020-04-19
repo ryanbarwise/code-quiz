@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
     <title>Quiz</title>
 </head>
 <body>
@@ -11,19 +12,37 @@
 
     </div>
     <script>
-        
+   
+
     var highScores = localStorage.getItem('highScores');
     if(highScores) {
         highScores = JSON.parse(highScores);
         var scores = document.getElementById('scores');
+       // elP1 = document.createElement('p');
+        for (var i = 0; i<highScores.length; i++) {
+           elP1 = document.createElement('p');
+            elP1.textContent = highScores[i].initials + "            " + highScores[i].correct;
+            scores.append(elP1);
+         }
+        // for (var i = 0; i < highScores.length; i++) {
+             //elP2 = document.createElement('p');
+             //elP2.textContent = highScores[i].incorrect;
+             //scores.append(elP2);
+         }
+         //for (var i = 0; i < highScores.length; i++) {
+             //elP3 = document.createElement('p');
+             //elP3.textContent = highScores[i].initials;
+             //scores.append(elP3);
+        // }
+       
         
         
         
         
         //render parsed highscors to the page
-    } else {
+    //} else {
         // no highscores were saved
-    }
+    //}
     </script>
 </body>
 </html>
